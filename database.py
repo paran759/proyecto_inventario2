@@ -85,8 +85,29 @@ async def vender_producto(codigo, cantidad_vendida):
             await guardar_base_datos(nuevo_stock)
             return True
 
-        
+async def evaluar_stock():
+    async with db_lock:
 
-    
+        await asyncio.sleep(0.7)
+        datos = leer_base_datos()
 
+        determinante = asyncio.create_task(dato for dato in datos if datos[stock] <= 3)
+
+        if determinante == True:
+            print("Precuaicion: Cantidad del producto en almacen muy baja ")
+
+async def registrar_venta():
+    async with db_lock:
+
+        await asyncio.sleep(0.3)
+        datos = leer_base_datos()
+        cantidad_vender = vender_producto[cantidad_vendida]
+
+        resumen_venta = {
+            "estado": "exitoso",
+            "producto": datos[nombre],
+            "cantidad": cantidad_vender,
+            "bodega": datos[stock]
+        }
+        return resumen_venta
     
