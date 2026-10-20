@@ -2,21 +2,25 @@
     {
         "codigo": "m001",
         "nombre": "Llanta Trasera",
-        "stock": "10"
+        "stock": "10",
+        "categoria": "repuesto"
     },
     {
         "codigo": "m002",
         "nombre": "Inyectores",
-        "stock": "8"
+        "stock": "8",
+        "categoria": "electrico"
     },
     {
         "codigo": "m003",
         "nombre": "Camisas",
-        "stock": "11"
+        "stock": "11",
+        "categoria": "motor"
     },
     {
         "codigo": "m004",
         "nombre": "Empaque tapa valvula",
-        "stock": "0"
+        "stock": "0",
+        "categoria": "repuesto"
     }
 ]

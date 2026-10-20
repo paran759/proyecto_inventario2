@@ -7,7 +7,7 @@ db_lock = asyncio.Lock
 
 async def leer_base_datos():
     try:
-        async with aiofiles.open(ARCHIVO_BD, node="r", encoding="utf-8" ) as f:
+        async with aiofiles.open(ARCHIVO_BD, mode="r", encoding="utf-8" ) as f:
             contenido = await f.read()
             return json.loads(contenido)
     except FileNotFoundError:
