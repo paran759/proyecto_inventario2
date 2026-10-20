@@ -1,21 +1,31 @@
-import asyncio
-from database import crear_producto, obtener_producto, actualizar_stock, eliminar_producto, evaluar_stock, registrar_venta, vender_producto
+from fastapi import FastAPI,HTTPException
+from database import obtener_producto
 
-async def prueba_estres():
-    print("-----Iniciando prueba--------")
-    tarea_ventas = [
-        vender_producto("m001", 3),
-        vender_producto("m002", 6),
-        vender_producto("m003", 8),
-        vender_producto("m004", 1)
-    ]
+app = FastAPI(
+    title = "inventario Juan Carlos",
+    description="API asincrona",
+    version= "1.0.0"
+)
 
-    try: 
-        await asyncio.gather(*tarea_ventas)
-        print("Ventas realizadas exitosamente")
-        return registrar_venta()
-    except Exception as e:
-        print(f"Error en la venta: {e}")
+@app.get("/")
+async def ruta_principal():
+    return {"mensaje": "Bienvenido a nuestra primera API"}
 
-    print("\nActualizar y consultar")
-asyncio.run(prueba_estres())
+@app.get("/estado")
+async def estado_servido():
+    return {"status": "En linea", "servicios": "Operativos"}
+
+@app.get("/suma")
+async def suma_en_servidor():
+    num1 = 50
+    num2 = 25
+    suma = num1 + num2
+    return {"numero1": num1, "+" "numero2": num2, "=": suma}
+
+@app.get("/producto/{codigo_producto}")
+async def buscar_un_producto(codigo_producto: str):
+    try:
+        producto = await obtener_producto(codigo_producto)
+        return producto
+    except KeyError:
+        raise HTTPException(status_code=404, detail="el producto solicitado no existe en la bas de datos")

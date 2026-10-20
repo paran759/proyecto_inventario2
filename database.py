@@ -110,4 +110,6 @@ async def registrar_venta():
             "bodega": datos[stock]
         }
         return resumen_venta
+
+    
     
